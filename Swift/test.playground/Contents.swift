@@ -192,7 +192,7 @@ import Foundation
 //    }
 //    return false
 //}
-var arr = [20,19,7,12]
+//var arr = [20,19,7,12]
 //func numTest(num: Int) -> Bool {
 //    return num > 19
 //}
@@ -343,4 +343,125 @@ var arr = [20,19,7,12]
 //let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square", numberOfSide: 4)
 //let sideLength = optionalSquare?.sideLength
 //print(optionalSquare?.name)
+
+
+//// 枚举、结构体
+//enum Rank: Int, CaseIterable {
+//    case ace = 1
+//    case two, three, four, five, six, seven, eight, nine, ten
+//    case jack, queue, king
+//    case red_joker, black_joker
+//    
+//    func simpleDescription() -> String {
+//        switch self {
+//        case .ace:
+//            return "A"
+//        case .jack:
+//            return "J"
+//        case .queue:
+//            return "Q"
+//        case .king:
+//            return "K"
+//        case .red_joker:
+//            return "大王"
+//        case .black_joker:
+//            return "小王"
+//        default:
+//            return String(self.rawValue)
+//        }
+//    }
+//}
+//
+//let ace = Rank.king
+//let aceRawValue = ace.rawValue
+//
+//func judgeBiger(rank1: Rank, rank2: Rank) -> Bool {
+//    return rank1.rawValue > rank2.rawValue
+//}
+//
+//let state = judgeBiger(rank1: .king, rank2: .queue)
+//
+//
+//enum Suit: String, CaseIterable {
+//    case spades, hearts, diamonds, clubs
+//    
+//    func simpleDescription() -> String {
+//        switch self {
+//        case .spades:
+//            return "♠"
+//        case .hearts:
+//            return "♥"
+//        case .diamonds:
+//            return "♦"
+//        case .clubs:
+//            return "♣"
+//        }
+//    }
+//}
+//let hearts = Suit.hearts
+//let heartsDescription = hearts.simpleDescription()
+//
+//func color(suit: Suit) -> String {
+//    switch suit {
+//    case .spades, .clubs:
+//        return "黑色"
+//    case .hearts, .diamonds:
+//        return "红色"
+//    }
+//}
+//color(suit: hearts)
+//
+//
+////// 请求服务器时间
+//enum ServerResponse {
+//    case result(String, String)
+//    case nodata(String)
+//    case failure(String)
+//}
+//
+//let response1 = ServerResponse.result("6:00 am", "8:12 pm")
+//let response2 = ServerResponse.nodata("[空]")
+//let response3 = ServerResponse.failure("请求超时！")
+//
+//switch response1 {
+//case let .result(sunrise, sunset):
+//    print("日出时间是 \(sunrise) ，日落时间是 \(sunset)")
+//case let .nodata(msg):
+//    print("请求成功，但数据为空... \(msg)")
+//case let .failure(message):
+//    print("失败...  \(message)")
+//}
+//
+////// 结构体
+//struct Card {
+//    var rank: Rank
+//    var suit: Suit
+//    func simpleDescription() -> String {
+//        return "\(suit.simpleDescription()) \(rank.simpleDescription())"
+//    }
+//}
+//
+//let threeOfSapdes = Card(rank: .three, suit: .spades)
+//let desc = threeOfSapdes.simpleDescription()
+//
+////// 打印所有扑克牌
+//func allCards() -> [String] {
+//    var cardArray: [String] = []
+//    for suit in Suit.allCases {
+//        let suitName = suit.simpleDescription()
+//        for rank in Rank.allCases {
+//            let rankName = rank.simpleDescription()
+//            if !rankName.contains("王") {
+//                cardArray .append(suitName + rankName)
+//            }
+//        }
+//    }
+//    cardArray.append("大王")
+//    cardArray.append("小王")
+//    return cardArray
+//}
+//
+//let arr = allCards()
+//print(arr)
+
 
