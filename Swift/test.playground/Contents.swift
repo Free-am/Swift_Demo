@@ -234,18 +234,113 @@ var arr = [20,19,7,12]
 
 
 ////对象和类
-class Shape {
-    init(num: Int = 0) {
-        self.num = num
-        print("init")
-    }
-    var num = 0
-    func method() -> String {
-        return "\(num + 8)"
-    }
-}
+//class Shape {
+//    var numberOfSides = 0
+//    func simpleDescription() -> String {
+//        return "A shape with \(numberOfSides) sides."
+//    }
+//}
+//
+//var shape = Shape()
+//shape.numberOfSides = 7
+//var shapeDescription = shape.simpleDescription()
+//
+////// 初始化
+//class NamedShape {
+//    var numberOfSides: Int = 0
+//    var name: String
+//    
+//    init(numberOfSides: Int, name: String) {
+//        self.numberOfSides = numberOfSides
+//        self.name = name
+//    }
+//    
+//    func simpleDescription() -> String {
+//        return "A shape named \(name) with \(numberOfSides) sides"
+//    }
+//}
+//
+//var nameShape = NamedShape(numberOfSides: 9, name: "Square")
+//var simpleDescription = nameShape.simpleDescription()
+//
+////// 子类继承
+//class Square: NamedShape {
+//    var sideLength: Double
+//    
+//    init(sideLength: Double, name: String, numberOfSide: Int) {
+//        self.sideLength = sideLength
+//        super.init(numberOfSides: numberOfSide, name: name)
+//    }
+//    
+//    func area() -> Double {
+//        return sideLength * sideLength
+//    }
+//    
+//    override func simpleDescription() -> String {
+//        return "A shape named \(name) with \(numberOfSides) sides of length \(sideLength)"
+//    }
+//}
+//
+//let test = Square(sideLength: 4, name: "Square", numberOfSide: 12)
+//test.area()
+//test.simpleDescription()
+//
+////// getter和setter
+//class EquilateralTriangle: NamedShape {
+//    var sideLength: Double = 0
+//    
+//    init(sideLength: Double, name: String) {
+//        self.sideLength = sideLength
+//        super.init(numberOfSides: 3, name: name)
+//    }
+//    
+//    var perimeter: Double {
+//        get {
+//            return 3.0 * sideLength
+//        }
+//        set {
+//            sideLength = newValue / 3.0
+//        }
+//    }
+//    
+//    override func simpleDescription() -> String {
+//        return "A shape named \(name) with \(numberOfSides) sides of length \(sideLength)."
+//    }
+//}
+//
+//var triangle = EquilateralTriangle(sideLength: 3.1, name: "Triangle")
+//print(triangle.perimeter)
+//triangle.perimeter = 9.9
+//print(triangle.sideLength)
+//print(triangle.simpleDescription())
+//
+//
+//class TriangleAndSquare {
+//    var square: Square {
+//        willSet {
+//            triangle.sideLength = newValue.sideLength
+//        }
+//    }
+//    var triangle: EquilateralTriangle {
+//        willSet {
+//            square.sideLength = newValue.sideLength
+//        }
+//    }
+//    init(size: Double, name: String, sideLength:Double, numberOFSides:Int) {
+////        self.square = square
+////        self.triangle = triangle
+//        self.square = Square(sideLength: sideLength, name: name, numberOfSide: numberOFSides)
+//        self.triangle = EquilateralTriangle(sideLength: sideLength, name: name)
+//    }
+//}
+//
+//var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape", sideLength: 2, numberOFSides: 10)
+//print(triangleAndSquare.square.sideLength)
+//print(triangleAndSquare.triangle.sideLength)
+//triangleAndSquare.square = Square(sideLength: 50, name: "large square", numberOfSide: 5)
+//print(triangleAndSquare.triangle.sideLength)
+//
+//let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square", numberOfSide: 4)
+//let sideLength = optionalSquare?.sideLength
+//print(optionalSquare?.name)
 
-var shape = Shape()
-let a = shape.method()
-print(a)
-print(shape.num)
