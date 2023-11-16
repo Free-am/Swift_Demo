@@ -465,3 +465,226 @@ import Foundation
 //print(arr)
 
 
+//// 并发性
+//func fetchUserID(from server: String) async -> Int {
+//    if server == "primary" {
+//        return 97
+//    }
+//    return 501
+//}
+//
+//func fetchUserName(from server: String) async -> String {
+//    let userId = await fetchUserID(from: server)
+//    if userId == 501 {
+//        return "John"
+//    }
+//    return "Guest"
+//}
+//
+//func connectUser(to server: String) async {
+//    async let userId = fetchUserID(from: server)
+//    async let userName = fetchUserName(from: server)
+//    let greeting = await "Hello \(userName), user ID \(userId)"
+//    print(greeting)
+//}
+//
+//Task {
+//    await connectUser(to: "primary")
+//}
+//
+//
+//let userIDs = await withTaskGroup(of: Int.self) { taskGroup in
+//    for server in ["primary", "secondary", "development"] {
+//        taskGroup.addTask {
+//            return await fetchUserID(from: server)
+//        }
+//    }
+//    
+//    var results: [Int] = []
+//    for await result in taskGroup {
+//        results.append(result)
+//    }
+//    return results
+//    
+//}
+//print(userIDs)
+//
+//
+//actor ServerConnection {
+//    var server: String = "primary"
+//    private var activeUsers: [Int] = []
+//    func connect() async -> Int {
+//        let userID = await fetchUserID(from: server)
+//        activeUsers.append(userID)
+//        return userID
+//    }
+//}
+//
+//let server = ServerConnection()
+//let userID = await server.connect()
+
+
+////协议和扩展
+//protocol ExampleProtocol {
+//    var simpleDescription: String { get }
+//    mutating func adjust()
+//}
+//
+//// 类遵守协议
+//class SimpleClass: ExampleProtocol {
+//    var simpleDescription: String = "A very simple class."
+//    var anotherProperty: Int = 69105
+//    func adjust() {
+//        simpleDescription += " Now 100% adjusted."
+//    }
+//}
+//
+//var a = SimpleClass()
+//a.adjust()
+//let aDescription = a.simpleDescription
+//
+//
+//// 结构体遵守协议
+//struct SimpleStructure: ExampleProtocol {
+//    var simpleDescription: String = "A simple Structure"
+//    mutating func adjust() {
+//        simpleDescription += " (adjusted)"
+//    }
+//}
+//var b = SimpleStructure()
+//b.adjust()
+//let bDescription = b.simpleDescription
+//
+//
+//func swap<T>(a: inout T, b: inout T) {
+//    (a,b) = (b,a)
+//}
+//var test1 = "qwer"
+//var test2 = "asdf"
+////swap(a: &test1, b: &test2)
+//swap(a: &test1, b: &test2)
+//print(test1)
+//print(test2)
+//
+//// 扩展
+//extension Int: ExampleProtocol {
+//    var simpleDescription: String {
+//        return "The number is \(self)"
+//    }
+//    mutating func adjust() {
+//        self += 42
+//    }
+//}
+//
+//var d:Int = 5
+//print(d.simpleDescription)
+//d.adjust()
+//print(d.simpleDescription)
+//
+//let protocolValue: any ExampleProtocol = a
+//print(protocolValue.simpleDescription)
+
+
+//// 错误处理
+//enum PrinterError: Error {
+//    case outOfPaper
+//    case noTonger
+//    case onFire
+//}
+//
+//func send(job: Int, toPrinter printerName: String) throws -> String {
+//    if printerName == "Never Has Toner" {
+//        throw PrinterError.noTonger
+//    } else if printerName == "Fire in the hole" {
+//        throw PrinterError.onFire
+//    }
+//    return "Job sent"
+//}
+//
+//do {
+//    let priterResponse = try send(job: 1040, toPrinter: "Fire in the hole")
+//    print(priterResponse)
+//} catch {
+//    print(error)
+//}
+//
+//
+//do {
+//    let printerResponse = try send(job: 1440, toPrinter: "Fire in the hole")
+//    print(printerResponse)
+//} catch PrinterError.noTonger {
+//    print("I'll just put this over here, with the rest of the fire.")
+//} catch let printerError as PrinterError {
+//    print("Printer error: \(printerError)")
+//} catch {
+//    print(error)
+//}
+//
+//let printerSuccess = try? send(job: 1884, toPrinter: "Mergenthaler")
+//let printerFailure = try? send(job: 1885, toPrinter: "Never Has Toner")
+
+
+//var fridgeIsOpen = false
+//let fridgeContent = ["milk", "eggs", "leftovers"]
+//
+//func fridgeContais(_ food: String) -> Bool {
+//    fridgeIsOpen = true
+//    defer {
+//        fridgeIsOpen = false
+//        print("最后关上冰箱")
+//    }
+//    print("打开冰箱")
+//    let result = fridgeContent.contains(food)
+//    return result
+//}
+//
+//if fridgeContais("milk") {
+//    print("Found a milk")
+//}
+//print(fridgeIsOpen)
+
+
+//// 泛型：在尖括号内写入名称以创建通用函数或类型。
+//func makeArray<Item>(repeating item: Item, numberOfTimes: Int) -> [Item] {
+//    var result: [Item] = []
+//    for _ in 0..<numberOfTimes {
+//        result.append(item)
+//    }
+//    return result
+//}
+//let arr = makeArray(repeating: "knock", numberOfTimes: 4)
+//print(arr)
+//
+//
+//func stateArr(state: Bool, num: Int) -> [Bool] {
+//    var arr: [Bool] = []
+//    for _ in 0..<num {
+//        arr.append(state)
+//    }
+//    return arr
+//}
+//
+//let sArr = stateArr(state: false, num: 4)
+//print(sArr)
+
+
+enum OptionalValue<Wrapped> {
+    case none
+    case some(Wrapped)
+}
+var possibleInteger: OptionalValue<Int> = .none
+possibleInteger = .some(100)
+
+func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> Bool
+where T.Element: Equatable, T.Element == U.Element
+{
+    for lhsItem in lhs {
+        for rhsItem in rhs {
+            if lhsItem == rhsItem {
+                return true
+            }
+        }
+    }
+    return false
+}
+anyCommonElements([1,2,3], [3])
