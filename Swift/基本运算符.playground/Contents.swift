@@ -2,7 +2,6 @@ import Foundation
 
 // 基本运算符
 // 支线赋值、算术和比较等操作
-
 let a = UInt8.max
 var b = a &+ 1
 print(b)
